@@ -34,7 +34,7 @@ template <typename T>
 T ArrayQueue<T>::back() const {
     // TODO
     if (isEmpty()) {
-        throw string("Cannot get back from an empty queue.");
+        throw string("Queue is empty.");
     }
     return buffer[backIndex];
 }
@@ -67,7 +67,7 @@ template <typename T>
 void ArrayQueue<T>::dequeue() {
     // TODO
     if (isEmpty()) {
-        throw string("Cannot dequeue from an empty queue.");
+        throw string("Queue is empty.");
     }
 
     frontIndex = (frontIndex + 1) % maxSize;
@@ -83,7 +83,7 @@ template <typename T>
 void ArrayQueue<T>::enqueue(const T& elem) {
     // TODO
     if (isFull()) {
-        throw string("Cannot enqueue to a full queue.");
+        throw string("Queue is full.");
     }
 
     backIndex = (backIndex + 1) % maxSize;
@@ -100,7 +100,7 @@ template <typename T>
 T ArrayQueue<T>::front() const {
     // TODO
     if (isEmpty()) {
-        throw string("Cannot get front from an empty queue.");
+        throw string("Queue is empty.");
     }
     return buffer[frontIndex];
 }
