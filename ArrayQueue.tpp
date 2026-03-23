@@ -1,11 +1,7 @@
 template <typename T>
 ArrayQueue<T>::ArrayQueue(int i) {
     // TODO
-    if (i <= 0) {
-        throw string("Queue size must be positive.");
-    }
-
-    maxSize = i;
+    maxSize = (i > 0) ? i : 100;
     buffer = new T[maxSize];
     this->length = 0;
     frontIndex = 0;

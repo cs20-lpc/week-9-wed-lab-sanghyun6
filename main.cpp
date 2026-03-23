@@ -1,43 +1,109 @@
 #include "ArrayQueue.hpp"
-#include <iostream>
-using namespace std;
+#include <cstdlib>
+#include <ctime>
 
 int main() {
-    ArrayQueue<int> q(3);
+    // create a queue of 10 integers
+    ArrayQueue<int> queueA(10);
 
-    // front/back on empty queue
-    try { q.front(); }
-    catch (string& e) { cout << "front empty ok "; }
-    try { q.back(); }
-    catch (string& e) { cout << "back empty ok "; }
+    // attempt to display the front and back
+    try {
+        cout << queueA.front() << " ";
+    } catch (string& e) {
+        cout << e << " ";
+    }
+    try {
+        cout << queueA.back() << " ";
+    } catch (string& e) {
+        cout << e << " ";
+    }
 
-    // enqueue + front/back
-    q.enqueue(10);
-    q.enqueue(20);
-    cout << "front:" << q.front() << " back:" << q.back() << " ";
+    // insert just one element to queue A
+    queueA.enqueue(-5);
 
-    // dequeue
-    q.dequeue();
-    cout << "after dequeue front:" << q.front() << " ";
+    // display its length, front, and back
+    cout << "queue A length: " << queueA.getLength() << " ";
+    cout << "queue A front: "  << queueA.front()     << " ";
+    cout << "queue A back: "   << queueA.back()      << " ";
 
-    // full queue check + enqueue on full
-    q.enqueue(30);
-    q.enqueue(40);
-    try { q.enqueue(50); }
-    catch (string& e) { cout << "full enqueue ok "; }
+    // now remove the single element from queue A
+    queueA.dequeue();
 
-    // copy constructor check
-    ArrayQueue<int> copyQ(q);
-    cout << "copy front:" << copyQ.front() << " back:" << copyQ.back() << " ";
+    // display its length, front, and back
+    cout << "queue A length: " << queueA.getLength() << " ";
+    try {
+        cout << queueA.front() << " ";
+    } catch (string& e) {
+        cout << e << " ";
+    }
+    try {
+        cout << queueA.back() << " ";
+    } catch (string& e) {
+        cout << e << " ";
+    }
 
-    // clear check
-    q.clear();
-    if (q.isEmpty()) cout << "clear ok ";
+    for (int i = 0; i < queueA.getMaxSize(); i++) {
+        queueA.enqueue(i);
+    }
 
-    // assignment operator check
-    ArrayQueue<int> assignQ;
-    assignQ = copyQ;
-    cout << "assign front:" << assignQ.front() << " back:" << assignQ.back() << '\n';
+    // ensure that queue A is now full
+    if (queueA.isFull()) {
+        cout << "queue A is full! ";
+    }
+    else {
+        cout << "queue A is not full [ERROR] ";
+    }
 
+    // display its length, front, and back
+    cout << "queue A length: " << queueA.getLength() << " ";
+    cout << "queue A front: "  << queueA.front()     << " ";
+    cout << "queue A back: "   << queueA.back()      << " ";
+
+    // make a copy of queue A
+    ArrayQueue<int> queueB = queueA;
+
+    // loop to dequeue and print
+    cout << "queue A contains: ";
+    for (int i = 0; i < queueA.getMaxSize(); i++) {
+        cout << queueA.front() << ' ';
+        queueA.dequeue();
+    }
+    cout << " ";
+
+    // queue A should now be empty
+    if (queueA.isEmpty()) {
+        cout << "queue A is now empty ";
+    }
+    else {
+        cout << "queue A is not empty [ERROR] ";
+    }
+
+    // display queue B length, front, and back
+    cout << "queue B length: " << queueB.getLength() << " ";
+    cout << "queue B front: "  << queueB.front()     << " ";
+    cout << "queue B back: "   << queueB.back()      << " ";
+
+    // make a copy of queue B
+    ArrayQueue<int> queueC;
+    queueC = queueB;
+
+    // clear out queue B
+    queueB.clear();
+
+    // queue B should now be empty
+    if (queueB.isEmpty()) {
+        cout << "queue B is now empty ";
+    }
+    else {
+        cout << "queue B is not empty [ERROR] ";
+    }
+
+    // display queue C length, front, and back
+    cout << "queue C length: " << queueC.getLength() << " ";
+    cout << "queue C front: "  << queueC.front()     << " ";
+    cout << "queue C back: "   << queueC.back()      << " ";
+
+    // terminate
     return 0;
 }
+
